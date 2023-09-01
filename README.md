@@ -8,3 +8,7 @@ Who Says What (WSW) is a pre-trained language model (PLM) which is designed to m
  Evaluation results of RUS in terms of recall (Rn@k). Non-PLMs and PLMs are shown in the 1st and 2nd row, respectively while ablation results are shown in the last row. 
  
 ![RUS](https://github.com/CyraxSector/WSW/assets/4902204/a46e7eaf-aca4-484b-b1b2-98109180241b)
+
+Evaluation results of SI in terms of Precision (P@1). PLMs are shown in the 1st row while ablation results are shown in the last row.
+
+![SI](https://github.com/CyraxSector/WSW/assets/4902204/6e9acda8-b964-4274-99d0-43ec13bc5ff0)
