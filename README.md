@@ -20,3 +20,7 @@ Evaluation results of SI in terms of Precision (P@1). PLMs are shown in the 1st 
 Evaluation results of SI in terms of Recall (Rn@k). Non-PLMs and PLMs are shown in the 1st and 2nd row, respectively while ablation results are shown in the last row.
 
 ![SI 2](https://github.com/CyraxSector/WSW/assets/4902204/0d6b5951-8e53-4e62-b0b2-354d705e827d)
+
+Evaluation results of SI in terms of F1 score.
+
+![SI](https://github.com/CyraxSector/WSW/assets/4902204/2723bd19-fcf8-42d9-8cb8-52869537e759)
