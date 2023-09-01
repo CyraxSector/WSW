@@ -15,12 +15,12 @@ We designed multiple self-supervised tasks on utterance structure modelling and 
 
 Evaluation results of SI in terms of Precision (P@1). PLMs are shown in the 1st row while ablation results are shown in the last row.
 
-![SI](https://github.com/CyraxSector/WSW/assets/4902204/6e9acda8-b964-4274-99d0-43ec13bc5ff0)
+![SI](https://github.com/CyraxSector/WSW/assets/4902204/fb68a409-4656-44ad-b17a-b132efe26caa)
 
 Evaluation results of SI in terms of Recall (Rn@k). Non-PLMs and PLMs are shown in the 1st and 2nd row, respectively while ablation results are shown in the last row.
 
-![SI 2](https://github.com/CyraxSector/WSW/assets/4902204/0d6b5951-8e53-4e62-b0b2-354d705e827d)
+![SI](https://github.com/CyraxSector/WSW/assets/4902204/395b26ab-14d0-45dc-a0f4-68dc958a7c05)
 
 Evaluation results of SI in terms of F1 score.
 
-![SI](https://github.com/CyraxSector/WSW/assets/4902204/2723bd19-fcf8-42d9-8cb8-52869537e759)
+![SI](https://github.com/CyraxSector/WSW/assets/4902204/4be13b5b-a209-46fc-96f4-6065ea11a397)
