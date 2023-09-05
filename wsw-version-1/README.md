@@ -80,3 +80,6 @@ Thanking Wenpeng Hu et al., for providing the processed Hu et al. (2019) GSN dat
 Thanking Ran Le for providing the processed Ouchi and Tsuboi (2016) ARS dataset used in their [paper](https://www.aclweb.org/anthology/D19-1199.pdf). <br>
 Thanking Nicholas Asher and Julie Hunter for providing the processed Asher et al., (2016) STAC dataset used in their [paper](https://hal.science/hal-02124399/). <br>
 Thanking Jiaqi Li et al., for providing the processed Li et al., (2020) Molweni dataset used in their [paper](https://aclanthology.org/2020.coling-main.238/).
+
+## Inquiry
+Feel free to contact us (2022md05@kuas.ac.jp) for any issues or inquiry.
