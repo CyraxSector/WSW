@@ -42,7 +42,7 @@ Modify the filenames in this folder to make it the same as those in Google's BER
 ## Fine-tuning Phase - Downstream Tasks Formation
 Two downstream tasks such as <i> Reply Utterance Selection (RUS) </i> and <i> Speaker Identification (SI) </i> are performed based on the three self-supervised tasks. <i> RUS </i> maps with the self-supervised task of <i> SUI</i>. The objective of <i> RUS </i> is to determine the semantic relevance of the context and a given reply-to utterance. <i> SI </i> maps with the self-supervised task of <i> ESR </i> determining the exact speaker of any given utterance of an MPC.
 
-### Fine-tuning downstream task <i> SI. </i> <br>
+### <u> Fine-tuning downstream task <i> SI. </i> </u> <br>
 
 Create the fine-tuning data for the downstream task <i> SI. </i>
 ```
@@ -55,6 +55,21 @@ python finetuning_speaker_identification_runner.py
 Running the testing process for the downstream task <i> SI. </i>
 ```
 python finetuning_speaker_identification_tester.py
+```
+
+### <u> Fine-tuning downstream task <i> RUS. </i> </u> <br>
+
+Create the fine-tuning data for the downstream task <i> RUS. </i>
+```
+python finetuning_reply_utterance_selection_data.py 
+```
+Running the fine-tuning process for the downstream task <i> RUS. </i>
+```
+python finetuning_reply_utterance_selection_runner.py
+```
+Running the testing process for the downstream task <i> RUS. </i>
+```
+python finetuning_reply_utterance_selection_tester.py
 ```
 
 ## Cite
@@ -76,6 +91,7 @@ Y.H.P.P. Priyadarshana (Prasan Yapa), Zilu Liang, and Ian Piumarta. _WEBIST 2023
 ```
 
 ## Acknowledgments
+Some code of this project are referenced from [MPC-BERT](https://github.com/JasonForJoy/MPC-BERT). We thank their open source materials for the contribution in our study. <br>
 Thanking Wenpeng Hu et al., for providing the processed Hu et al. (2019) GSN dataset used in their [paper](https://www.ijcai.org/proceedings/2019/0696.pdf). <br>
 Thanking Ran Le for providing the processed Ouchi and Tsuboi (2016) ARS dataset used in their [paper](https://www.aclweb.org/anthology/D19-1199.pdf). <br>
 Thanking Nicholas Asher and Julie Hunter for providing the processed Asher et al., (2016) STAC dataset used in their [paper](https://hal.science/hal-02124399/). <br>
