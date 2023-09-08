@@ -87,7 +87,6 @@ Y.H.P.P. Priyadarshana (Prasan Yapa), Zilu Liang, and Ian Piumarta. _WEBIST 2023
  year = "2023",
  address = "Rome, Italy",
  publisher = "SCITEPRESS"
-}
 ```
 
 ## Acknowledgments
