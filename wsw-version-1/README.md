@@ -78,15 +78,21 @@ If you think of using the code, please cite our paper:
 Y.H.P.P. Priyadarshana (Prasan Yapa), Zilu Liang, and Ian Piumarta. _WEBIST 2023_
 
 ```
- title = "Who Says What (WSW): A Novel Model for Utterance-Aware Speaker Identification in Text-Based Multi-Party Conversations",
- author = "Y.H.P.P. Priyadarshana and 
-           Zilu Liang and
-           Ian Piumarta",
- booktitle = "Proceedings of the 19th International Conference on Web Information Systems and Technologies",
- month = Nov,
- year = "2023",
- address = "Rome, Italy",
- publisher = "SCITEPRESS"
+ @inproceedings{
+    title = "Who Says What (WSW): A Novel Model for Utterance-Aware Speaker Identification in Text-Based Multi-Party Conversations",
+    author = "Priyadarshana, Y.  and
+      Liang, Z.  and
+      Piumarta, I.",
+    booktitle = "Proceedings of the 19th International Conference on Web Information Systems and Technologies ISSN 2184-3252",
+    ISBN = 978-989-758-672-9
+    DOI = 10.5220/0012164400003584
+    month = Nov,
+    year = "2023",
+    address = "Rome, Italy",
+    publisher = "SciTePress Digital Library (Science and Technology Publications)",
+    url = "https://www.scitepress.org/Link.aspx?doi=10.5220/0012164400003584",
+    pages = "26-36",
+}
 ```
 
 ## Acknowledgments
