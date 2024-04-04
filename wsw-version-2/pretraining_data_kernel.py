@@ -614,6 +614,47 @@ def create_root_utterance_node_detection_predictions(thread_a_tokens, thread_a_s
     return tokens, segment_ids, speaker_ids
 
 
+def create_shared_utterance_node_predictions(tokens, context_relation, cls_positions, max_utr_length, rng):
+    """Creates predictions for the Shared Utterance Node Prediction (SUNP) objective."""
+
+    src_to_num_tgt = {}
+    for relation in context_relation:
+        tgt, src = relation
+        if src not in src_to_num_tgt:
+            src_to_num_tgt[src] = int(rng)
+        else:
+            src_to_num_tgt[src] += int(rng)
+
+    shared_src = []
+    for src, num_tgt in src_to_num_tgt.items():
+        if num_tgt > 1:
+            shared_src.append(src)
+    if len(shared_src) == 0:
+        return tokens, [], []
+    rng.shuffle(shared_src)
+
+    masked_utr_id = shared_src[0]
+    masked_start = []
+    masked_end = []
+    for position in range(cls_positions):
+        masked_start = cls_positions[masked_utr_id]
+        if (cls_positions[masked_utr_id + position] - cls_positions[masked_utr_id]) <= max_utr_length:
+            masked_end = cls_positions[masked_utr_id + position]
+        else:
+            masked_end = cls_positions[masked_utr_id] + max_utr_length
+
+    output_tokens = list(tokens)
+    masked_token = "[MASK]"
+    masked_sur_positions = []
+    masked_sur_labels = []
+    for index in range(masked_start, masked_end):
+        output_tokens[index] = masked_token
+        masked_sur_positions.append(index)
+        masked_sur_labels.append(tokens[index])
+
+    return output_tokens, masked_sur_positions, masked_sur_labels
+
+
 def truncate_seq_pair(ctx_tokens, rsp_tokens, max_num_tokens, rng):
     """Truncates a single sequence to a maximum sequence length."""
     while True:
