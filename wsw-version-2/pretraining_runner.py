@@ -129,41 +129,41 @@ def parse_exmp(serial_exmp):
 
                                                        "cls_positions":
                                                            tf.compat.v1.FixedLenFeature([FLAGS.max_utr_num], tf.int64),
-                                                       "input_ids_ar_msr_pcd":
+                                                       "input_ids_sui_esr":
                                                            tf.compat.v1.FixedLenFeature([FLAGS.max_seq_length],
                                                                                         tf.int64),
-                                                       "input_mask_ar_msr_pcd":
+                                                       "input_mask_sui_esr":
                                                            tf.compat.v1.FixedLenFeature([FLAGS.max_seq_length],
                                                                                         tf.int64),
-                                                       "segment_ids_ar_msr_pcd":
+                                                       "segment_ids_sui_esr":
                                                            tf.compat.v1.FixedLenFeature([FLAGS.max_seq_length],
                                                                                         tf.int64),
-                                                       "speaker_ids_ar_msr_pcd":
+                                                       "speaker_ids_sui_esr":
                                                            tf.compat.v1.FixedLenFeature([FLAGS.max_seq_length],
                                                                                         tf.int64),
 
-                                                       "adr_recog_positions":
+                                                       "sui_recog_positions":
                                                            tf.compat.v1.FixedLenFeature(
                                                                [FLAGS.max_predictions_per_seq_ar],
                                                                tf.int64),
-                                                       "adr_recog_labels":
+                                                       "sui_recog_labels":
                                                            tf.compat.v1.FixedLenFeature(
                                                                [FLAGS.max_predictions_per_seq_ar],
                                                                tf.int64),
-                                                       "adr_recog_weights":
+                                                       "sui_recog_weights":
                                                            tf.compat.v1.FixedLenFeature(
                                                                [FLAGS.max_predictions_per_seq_ar],
                                                                tf.float32),
 
-                                                       "masked_sr_positions":
+                                                       "exact_sr_positions":
                                                            tf.compat.v1.FixedLenFeature(
                                                                [FLAGS.max_predictions_per_seq_sr],
                                                                tf.int64),
-                                                       "masked_sr_labels":
+                                                       "exact_sr_labels":
                                                            tf.compat.v1.FixedLenFeature(
                                                                [FLAGS.max_predictions_per_seq_sr],
                                                                tf.int64),
-                                                       "masked_sr_weights":
+                                                       "exact_sr_weights":
                                                            tf.compat.v1.FixedLenFeature(
                                                                [FLAGS.max_predictions_per_seq_sr],
                                                                tf.float32),
@@ -179,28 +179,15 @@ def parse_exmp(serial_exmp):
                                                        "speaker_ids_sunp":
                                                            tf.compat.v1.FixedLenFeature([FLAGS.max_seq_length],
                                                                                         tf.int64),
-                                                       "masked_sur_positions":
+                                                       "root_und_positions":
                                                            tf.compat.v1.FixedLenFeature([FLAGS.max_utr_length],
                                                                                         tf.int64),
-                                                       "masked_sur_ids":
+                                                       "root_und_ids":
                                                            tf.compat.v1.FixedLenFeature([FLAGS.max_utr_length],
                                                                                         tf.int64),
-                                                       "masked_sur_weights":
+                                                       "root_und_weights":
                                                            tf.compat.v1.FixedLenFeature([FLAGS.max_utr_length],
                                                                                         tf.float32),
-
-                                                       "input_ids_snd":
-                                                           tf.compat.v1.FixedLenFeature([FLAGS.max_seq_length],
-                                                                                        tf.int64),
-                                                       "input_mask_snd":
-                                                           tf.compat.v1.FixedLenFeature([FLAGS.max_seq_length],
-                                                                                        tf.int64),
-                                                       "segment_ids_snd":
-                                                           tf.compat.v1.FixedLenFeature([FLAGS.max_seq_length],
-                                                                                        tf.int64),
-                                                       "speaker_ids_snd":
-                                                           tf.compat.v1.FixedLenFeature([FLAGS.max_seq_length],
-                                                                                        tf.int64),
                                                        "next_thread_labels":
                                                            tf.compat.v1.FixedLenFeature([1], tf.int64),
                                                    }
@@ -222,49 +209,35 @@ def parse_exmp(serial_exmp):
     masked_lm_weights = input_data["masked_lm_weights"]
 
     cls_positions = input_data["cls_positions"]
-    input_ids_ar_msr_pcd = input_data["input_ids_ar_msr_pcd"]
-    input_mask_ar_msr_pcd = input_data["input_mask_ar_msr_pcd"]
-    segment_ids_ar_msr_pcd = input_data["segment_ids_ar_msr_pcd"]
-    speaker_ids_ar_msr_pcd = input_data["speaker_ids_ar_msr_pcd"]
+    input_ids_sui_esr = input_data["input_ids_sui_esr"]
+    input_mask_sui_esr = input_data["input_mask_sui_esr"]
+    segment_ids_sui_esr = input_data["segment_ids_sui_esr"]
+    speaker_ids_sui_esr = input_data["speaker_ids_sui_esr"]
 
-    adr_recog_positions = input_data["adr_recog_positions"]
-    adr_recog_labels = input_data["adr_recog_labels"]
-    adr_recog_weights = input_data["adr_recog_weights"]
+    sui_recog_positions = input_data["sui_recog_positions"]
+    sui_recog_labels = input_data["sui_recog_labels"]
+    sui_recog_weights = input_data["sui_recog_weights"]
 
-    masked_sr_positions = input_data["masked_sr_positions"]
-    masked_sr_labels = input_data["masked_sr_labels"]
-    masked_sr_weights = input_data["masked_sr_weights"]
-
-    pointer_cd_positions_spk1 = input_data["pointer_cd_positions_spk1"]
-    pointer_cd_positions_adr1 = input_data["pointer_cd_positions_adr1"]
-    pointer_cd_positions_spk2 = input_data["pointer_cd_positions_spk2"]
-    pointer_cd_positions_adr2 = input_data["pointer_cd_positions_adr2"]
-    pointer_cd_positions_spk3 = input_data["pointer_cd_positions_spk3"]
-    pointer_cd_positions_adr3 = input_data["pointer_cd_positions_adr3"]
-    pointer_cd_weights = input_data["pointer_cd_weights"]
+    exact_sr_positions = input_data["exact_sr_positions"]
+    exact_sr_labels = input_data["exact_sr_labels"]
+    exact_sr_weights = input_data["exact_sr_weights"]
 
     input_ids_sunp = input_data["input_ids_sunp"]
     input_mask_sunp = input_data["input_mask_sunp"]
     segment_ids_sunp = input_data["segment_ids_sunp"]
     speaker_ids_sunp = input_data["speaker_ids_sunp"]
-    masked_sur_positions = input_data["masked_sur_positions"]
-    masked_sur_ids = input_data["masked_sur_ids"]
-    masked_sur_weights = input_data["masked_sur_weights"]
 
-    input_ids_snd = input_data["input_ids_snd"]
-    input_mask_snd = input_data["input_mask_snd"]
-    segment_ids_snd = input_data["segment_ids_snd"]
-    speaker_ids_snd = input_data["speaker_ids_snd"]
+    root_und_positions = input_data["root_und_positions"]
+    root_und_ids = input_data["root_und_ids"]
+    root_und_weights = input_data["root_und_weights"]
     next_thread_labels = input_data["next_thread_labels"]
 
     return input_ids_mlm_nsp, input_mask_mlm_nsp, segment_ids_mlm_nsp, speaker_ids_mlm_nsp, \
         next_sentence_labels, masked_lm_positions, masked_lm_ids, masked_lm_weights, \
-        cls_positions, input_ids_ar_msr_pcd, input_mask_ar_msr_pcd, segment_ids_ar_msr_pcd, speaker_ids_ar_msr_pcd, \
-        adr_recog_positions, adr_recog_labels, adr_recog_weights, masked_sr_positions, masked_sr_labels, masked_sr_weights, \
-        pointer_cd_positions_spk1, pointer_cd_positions_adr1, pointer_cd_positions_spk2, pointer_cd_positions_adr2, \
-        pointer_cd_positions_spk3, pointer_cd_positions_adr3, pointer_cd_weights, \
-        input_ids_sunp, input_mask_sunp, segment_ids_sunp, speaker_ids_sunp, masked_sur_positions, masked_sur_ids, masked_sur_weights, \
-        input_ids_snd, input_mask_snd, segment_ids_snd, speaker_ids_snd, next_thread_labels
+        cls_positions, input_ids_sui_esr, input_mask_sui_esr, segment_ids_sui_esr, speaker_ids_sui_esr, \
+        sui_recog_positions, sui_recog_labels, sui_recog_weights, exact_sr_positions, exact_sr_labels, exact_sr_weights, \
+        input_ids_sunp, input_mask_sunp, segment_ids_sunp, speaker_ids_sunp, root_und_positions, root_und_ids, \
+        root_und_weights, next_thread_labels
 
 
 def model_fn_builder(features, is_training, bert_config, init_checkpoint, learning_rate,
@@ -274,8 +247,8 @@ def model_fn_builder(features, is_training, bert_config, init_checkpoint, learni
     (input_ids_mlm_nsp, input_mask_mlm_nsp, segment_ids_mlm_nsp, speaker_ids_mlm_nsp,
      next_sentence_labels, masked_lm_positions, masked_lm_ids, masked_lm_weights,
      cls_positions, input_ids_sui_esr, input_mask_sui_esr, segment_ids_sui_esr, speaker_ids_sui_esr,
-     sui_recog_positions, sui_recog_labels, sui_recog_weights, masked_esr_positions, masked_esr_labels,
-     masked_esr_weights, input_ids_sunp, input_mask_sunp, segment_ids_sunp, speaker_ids_sunp,
+     sui_recog_positions, sui_recog_labels, sui_recog_weights, exact_sr_positions, exact_sr_labels, exact_sr_weights,
+     input_ids_sunp, input_mask_sunp, segment_ids_sunp, speaker_ids_sunp,
      shared_unp_positions, shared_unp_ids, shared_unp_weights, input_ids_rund, input_mask_rund, segment_ids_rund,
      speaker_ids_rund, next_thread_labels) = features
 
@@ -313,8 +286,8 @@ def model_fn_builder(features, is_training, bert_config, init_checkpoint, learni
         sui_recog_weights)
 
     (masked_esr_loss, masked_esr_example_loss, masked_esr_log_probs) = get_exact_speaker_recognition_output(
-        bert_config, model_sui_esr.get_sequence_output(), cls_positions, masked_esr_positions, masked_esr_labels,
-        masked_esr_weights)
+        bert_config, model_sui_esr.get_sequence_output(), cls_positions, exact_sr_positions, exact_sr_labels,
+        exact_sr_weights)
 
     model_sunp = modeling.BertModel(
         config=bert_config,
@@ -368,7 +341,7 @@ def model_fn_builder(features, is_training, bert_config, init_checkpoint, learni
                         next_sentence_example_loss, next_sentence_log_probs, next_sentence_labels,
                         sui_recog_example_loss, sui_recog_log_probs, sui_recog_labels, sui_recog_weights,
                         masked_esr_example_loss, masked_esr_log_probs, shared_unp_example_loss, shared_unp_log_probs,
-                        root_und_example_loss, root_und_log_probs, masked_esr_labels, masked_esr_weights,
+                        root_und_example_loss, root_und_log_probs, exact_sr_labels, exact_sr_weights,
                         shared_unp_ids, shared_unp_weights)
 
     return train_op, total_loss, metrics, input_ids_mlm_nsp
@@ -427,8 +400,8 @@ def get_next_sentence_output(bert_config, input_tensor, labels):
         log_probs = tf.nn.log_softmax(logits, axis=-1)  # [batch_size, 2]
         labels = tf.reshape(labels, [-1])
         one_hot_labels = tf.one_hot(labels, depth=2, dtype=tf.float32)
-        per_example_loss = - tf.reduce_sum(one_hot_labels * log_probs, axis=-1)  # [batch_size, ]
-        loss = tf.reduce_mean(per_example_loss)  # [1, ]
+        per_example_loss = - tf.reduce_sum(one_hot_labels * log_probs, axis=-1)
+        loss = tf.reduce_mean(per_example_loss)
 
         return loss, per_example_loss, log_probs
 
@@ -608,9 +581,6 @@ def get_root_utterance_node_detection_output(bert_config, input_tensor, labels):
 
 def gather_indexes(sequence_tensor, positions):
     """Gathers the vectors at the specific positions over a minibatch."""
-    # sequence_tensor = [batch_size, seq_length, width]
-    # positions = [batch_size, max_predictions_per_seq]
-
     sequence_shape = modeling.get_shape_list(sequence_tensor, expected_rank=3)
     batch_size = sequence_shape[0]
     seq_length = sequence_shape[1]
