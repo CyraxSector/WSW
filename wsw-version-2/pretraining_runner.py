@@ -675,49 +675,41 @@ def run_epoch(epoch, sess, saver, output_dir, epoch_save_step, mid_save_step,
             _input_ids, batch_metrics, batch_loss, _, _ = sess.run(
                 [input_ids, eval_metrics, total_loss, train_op, eval_op])
             masked_lm_accuracy, masked_lm_loss, next_sentence_accuracy, next_sentence_loss, \
-                adr_recog_accuracy, adr_recog_loss, masked_sr_accuracy, masked_sr_loss, \
-                pointer_cd_simi, pointer_cd_loss, masked_sur_accuracy, masked_sur_loss, \
-                shared_nd_accuracy, shared_nd_loss = batch_metrics
+                spk_ui_accuracy, spk_ui_loss, exact_sr_accuracy, exact_sr_loss, \
+                shared_unp_accuracy, shared_unp_loss, root_und_accuracy, root_und_loss = batch_metrics
 
             batch_sample = len(_input_ids)
             total_sample += batch_sample
-            # accumulate_loss += batch_loss * batch_sample
 
-            # print
             print_every_step = 200
             if step % print_every_step == 0:
                 tf.compat.v1.logging.info("Step: {}, Loss: {:.4f}, Sample: {}, Time (min): {:.2f}".format(
                     step, batch_loss, total_sample, (time() - t0) / 60))
                 tf.compat.v1.logging.info(
                     'MLM_accuracy: {:.6f}, MLM_loss: {:.6f}, NSP_accuracy: {:.6f}, NSP_loss: {:.6f}, '
-                    'RUR_accuracy: {:.6f}, RUR_loss: {:.6f}, ISS_accuracy: {:.6f}, ISS_loss: {:.6f}, '
-                    'PCD_similarity: {:.6f}, PCD_loss: {:.6f}, SUNP_accuracy: {:.6f}, SUNP_loss: {:.6f}, '
-                    'SND_accuracy: {:.6f}, SND_loss: {:.6f}'.format(
+                    'SUI_accuracy: {:.6f}, SUI_loss: {:.6f}, ESR_accuracy: {:.6f}, ESR_loss: {:.6f}, '
+                    'SUNP_accuracy: {:.6f}, SUNP_loss: {:.6f},''RUND_accuracy: {:.6f}, RUND_loss: {:.6f}'.format(
                         masked_lm_accuracy, masked_lm_loss, next_sentence_accuracy, next_sentence_loss,
-                        adr_recog_accuracy, adr_recog_loss, masked_sr_accuracy, masked_sr_loss,
-                        pointer_cd_simi, pointer_cd_loss, masked_sur_accuracy, masked_sur_loss,
-                        shared_nd_accuracy, shared_nd_loss))
+                        spk_ui_accuracy, spk_ui_loss, exact_sr_accuracy, exact_sr_loss,
+                        shared_unp_accuracy, shared_unp_loss,
+                        root_und_accuracy, root_und_loss))
 
             if (step % mid_save_step == 0) or (step % epoch_save_step == 0):
-                # c_time = str(int(time()))
                 save_path = os.path.join(output_dir, 'pretrained_bert_model_epoch_{}_step_{}'.format(epoch, step))
                 if not os.path.exists(save_path):
                     os.makedirs(save_path)
                 saver.save(sess, os.path.join(save_path, 'bert_model_epoch_{}_step_{}.ckpt'.format(epoch, step)),
                            global_step=step)
-                # saver.save(sess, os.path.join(save_path, 'bert_model_epoch_{}_step_{}.ckpt'.format(epoch, step)))
                 tf.compat.v1.logging.info('========== Save model at epoch: {}, step: {} =========='.format(epoch, step))
                 tf.compat.v1.logging.info("Step: {}, Loss: {:.4f}, Sample: {}, Time (min): {:.2f}".format(
                     step, batch_loss, total_sample, (time() - t0) / 60))
                 tf.compat.v1.logging.info(
                     'MLM_accuracy: {:.6f}, MLM_loss: {:.6f}, NSP_accuracy: {:.6f}, NSP_loss: {:.6f}, '
-                    'RUR_accuracy: {:.6f}, RUR_loss: {:.6f}, ISS_accuracy: {:.6f}, ISS_loss: {:.6f}, '
-                    'PCD_similarity: {:.6f}, PCD_loss: {:.6f}, SUNP_accuracy: {:.6f}, SUNP_loss: {:.6f}, '
-                    'SND_accuracy: {:.6f}, SND_loss: {:.6f}'.format(
+                    'SUI_accuracy: {:.6f}, SUI_loss: {:.6f}, ESR_accuracy: {:.6f}, ESR_loss: {:.6f}, '
+                    'SUNP_accuracy: {:.6f}, SUNP_loss: {:.6f}, ''RUND_accuracy: {:.6f}, RUND_loss: {:.6f}'.format(
                         masked_lm_accuracy, masked_lm_loss, next_sentence_accuracy, next_sentence_loss,
-                        adr_recog_accuracy, adr_recog_loss, masked_sr_accuracy, masked_sr_loss,
-                        pointer_cd_simi, pointer_cd_loss, masked_sur_accuracy, masked_sur_loss,
-                        shared_nd_accuracy, shared_nd_loss))
+                        spk_ui_accuracy, spk_ui_loss, exact_sr_accuracy, exact_sr_loss, shared_unp_accuracy,
+                        shared_unp_loss, root_und_accuracy, root_und_loss))
 
     except tf.errors.OutOfRangeError:
         tf.compat.v1.logging.info('*** Epoch {} is finished ***'.format(epoch))
