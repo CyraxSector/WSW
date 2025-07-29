@@ -6,7 +6,7 @@ import tensorflow as tf
 
 import modeling_speaker as modeling
 from pretraining_runner import (get_speaker_utterance_identification_output, get_exact_speaker_recognition_output,
-                                get_root_utterance_node_detection_output)
+                                get_root_utterance_node_detection_output, get_shared_utterance_node_predictions_output)
 
 
 class DummyBertConfig:
@@ -135,3 +135,41 @@ def test_get_root_utterance_node_detection_output(dummy_inputs):
         assert pel_val.shape == (3,)
         assert logp_val.shape == (3, 2)
         assert np.allclose(np.exp(logp_val).sum(axis=1), 1.0, atol=1e-5)
+
+
+@pytest.mark.parametrize("batch_size,seq_length,hidden_size,vocab_size,max_predictions", [
+    (2, 4, 16, 50, 3)
+])
+def test_get_shared_utterance_node_predictions_output(batch_size, seq_length, hidden_size, vocab_size, max_predictions):
+    tf.compat.v1.reset_default_graph()
+
+    bert_config = SimpleNamespace(
+        hidden_size=hidden_size,
+        hidden_act="gelu",
+        initializer_range=0.02,
+        vocab_size=vocab_size
+    )
+
+    input_tensor = tf.constant(np.random.rand(batch_size, seq_length, hidden_size), dtype=tf.float32)
+    output_weights = tf.constant(np.random.rand(vocab_size, hidden_size), dtype=tf.float32)
+    positions = tf.constant(np.random.randint(0, seq_length, size=(batch_size, max_predictions)), dtype=tf.int32)
+    label_ids = tf.constant(np.random.randint(0, vocab_size, size=(batch_size, max_predictions)), dtype=tf.int32)
+    label_weights = tf.constant(np.ones((batch_size, max_predictions)), dtype=tf.float32)
+
+    loss, per_example_loss, log_probs = get_shared_utterance_node_predictions_output(
+        bert_config,
+        input_tensor,
+        output_weights,
+        positions,
+        label_ids,
+        label_weights
+    )
+
+    with tf.compat.v1.Session() as sess:
+        sess.run(tf.compat.v1.global_variables_initializer())
+        loss_val, per_example_loss_val, log_probs_val = sess.run([loss, per_example_loss, log_probs])
+
+    # Assertions
+    assert isinstance(loss_val, np.float32)
+    assert per_example_loss_val.shape == (batch_size * max_predictions,)
+    assert log_probs_val.shape == (batch_size * max_predictions, vocab_size)
